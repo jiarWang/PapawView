@@ -1,4 +1,4 @@
-package com.example.papawview;
+package com.jiarwang.papaw;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.example.papawview", appContext.getPackageName());
+        assertEquals("com.jiarwang.papaw.test", appContext.getPackageName());
     }
 }

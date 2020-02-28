@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="radius" format="dimension" />
+    <attr name="horn_side" format="flags">
+        <flag name="none" value="0" />
+        <flag name="left" value="1" />
+        <flag name="top" value="16" />
+        <flag name="right" value="256" />
+        <flag name="bottom" value="4096" />
+    </attr>
+
+    <attr name="horn_alpha" format="float" />
+    <attr name="horn_height" format="dimension" />
+    <attr name="horn_start" format="dimension" />
+    <attr name="horn_center" format="dimension" />
+    <attr name="horn_end" format="dimension" />
+
+    <declare-styleable name="PapawTextView">
+        <attr name="radius" />
+        <attr name="horn_side" />
+        <attr name="horn_alpha" />
+        <attr name="horn_height" />
+        <attr name="horn_start" />
+        <attr name="horn_center" />
+        <attr name="horn_end" />
+    </declare-styleable>
+
+    <declare-styleable name="PapawLayout">
+        <attr name="radius" />
+        <attr name="horn_side" />
+        <attr name="horn_alpha" />
+        <attr name="horn_height" />
+        <attr name="horn_start" />
+        <attr name="horn_center" />
+        <attr name="horn_end" />
+    </declare-styleable>
+</resources>

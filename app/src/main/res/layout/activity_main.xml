@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="hello \n hello \n hello \n hello"
+        android:textSize="100sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".Main2Activity">
+
+        <com.jiarwang.papaw.PapawLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:paddingTop="20dp"
+            app:horn_alpha="0.71"
+            app:horn_center="30dp"
+            app:horn_end="50dp"
+            app:horn_height="20dp"
+            app:horn_side="top"
+            app:horn_start="20dp"
+            app:radius="12dp"
+            tools:context=".Main2Activity">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="alpha = 0.71"
+                android:textSize="20sp" />
+        </com.jiarwang.papaw.PapawLayout>
+
+        <com.jiarwang.papaw.PapawTextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="right"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:paddingLeft="30dp"
+            android:paddingRight="50dp"
+            android:text="alpha = 0.5"
+            android:textSize="32sp"
+            app:horn_alpha="0.5"
+            app:horn_center="20dp"
+            app:horn_end="18dp"
+            app:horn_height="20dp"
+            app:horn_side="right"
+            app:horn_start="0dp"
+            app:radius="12dp" />
+
+        <com.jiarwang.papaw.PapawTextView
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="20dp"
+            android:text="alpha = 0.3"
+            android:textSize="32sp"
+            app:horn_alpha="0.3"
+            app:horn_center="30dp"
+            app:horn_end="50dp"
+            app:horn_height="20dp"
+            app:horn_side="bottom"
+            app:horn_start="20dp"
+            app:radius="12dp" />
+
+        <com.jiarwang.papaw.PapawTextView
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:gravity="center"
+            android:paddingLeft="70dp"
+            android:paddingRight="50dp"
+            android:text="alpha = 0.0 radius = 12dp"
+            android:textSize="32sp"
+            app:horn_alpha="0"
+            app:horn_center="-10dp"
+            app:horn_end="60dp"
+            app:horn_height="20dp"
+            app:horn_side="left"
+            app:horn_start="10dp"
+            app:radius="12dp" />
+
+    </LinearLayout>
+</FrameLayout>
