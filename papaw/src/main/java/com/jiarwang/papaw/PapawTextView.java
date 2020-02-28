@@ -3,6 +3,9 @@ package com.jiarwang.papaw;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
 import android.util.AttributeSet;
 
 import androidx.annotation.Nullable;
@@ -33,7 +36,7 @@ public class PapawTextView extends AppCompatTextView {
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PapawTextView);
+        final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PapawTextView);
 //        //check attributes you need, for example all paddings
 //        int [] attributes = new int [] {android.R.attr.paddingLeft, android.R.attr.paddingTop, android.R.attr.paddingBottom, android.R.attr.paddingRight};
 //        //then obtain typed array
@@ -52,8 +55,17 @@ public class PapawTextView extends AppCompatTextView {
         float anchorCenter = typedArray.getDimension(R.styleable.PapawTextView_horn_center, 0);
         float anchorEnd = typedArray.getDimension(R.styleable.PapawTextView_horn_end, 0);
         float papawAlpha = typedArray.getFloat(R.styleable.PapawTextView_horn_alpha, 0);
-
-        mHelper = new PapawHelper(this)
+        final int color = typedArray.getColor(R.styleable.PapawTextView_color, Color.BLACK);
+        mHelper = new PapawHelper(this) {
+            @Override
+            public void onDrawPath(Canvas canvas, Paint paint, Path path) {
+                if (typedArray.hasValue(R.styleable.PapawLayout_color)){
+                    paint.setShader(null);
+                    paint.setColor(color);
+                }
+                super.onDrawPath(canvas, paint, path);
+            }
+        }
                 .setAlpha(papawAlpha)
                 .setRadius(radius)
                 .setHornHeight(hornHeight)

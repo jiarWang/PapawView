@@ -90,6 +90,7 @@
             android:text="alpha = 0.0 radius = 12dp"
             android:textSize="32sp"
             app:horn_alpha="0"
+            app:color="@color/colorAccent"
             app:horn_center="-10dp"
             app:horn_end="60dp"
             app:horn_height="20dp"

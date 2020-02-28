@@ -14,6 +14,7 @@
     <attr name="horn_start" format="dimension" />
     <attr name="horn_center" format="dimension" />
     <attr name="horn_end" format="dimension" />
+    <attr name="color" format="color"/>
 
     <declare-styleable name="PapawTextView">
         <attr name="radius" />
@@ -23,6 +24,7 @@
         <attr name="horn_start" />
         <attr name="horn_center" />
         <attr name="horn_end" />
+        <attr name="color"/>
     </declare-styleable>
 
     <declare-styleable name="PapawLayout">
@@ -33,5 +35,6 @@
         <attr name="horn_start" />
         <attr name="horn_center" />
         <attr name="horn_end" />
+        <attr name="color"/>
     </declare-styleable>
 </resources>
