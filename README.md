@@ -1,9 +1,9 @@
 # PapawView
 [![](https://jitpack.io/v/jiarWang/PapawView.svg)](https://jitpack.io/#jiarWang/PapawView)
 
-`PapawView`: 自带羊角背景的`View`
+`PapawView`: 可灵活定义含凸起外形背景的`View`
 
-<img src="./1.jpg" width="200" height="80" />
+<img src="./3.jpg" width="200" height="80" />
 
 使用：<p/>
 Step 1. Add it in your root `./build.gradle` at the end of repositories:
@@ -25,7 +25,10 @@ Step 2. Add the dependency
 ## PapawTextView
 <hr/>
 
-`PapawTextView`继承自`TextView`；通过使用`PapawTextView`的额外属性，可以使
+`PapawTextView`继承自`TextView`；
+
+通过使用`PapawTextView`的额外属性来定义羊角的位置、高度以及背景色
+
 ![测量图](./papaw_1.png)
 
 | 属性        |      类型 |                                 说明                                  |
@@ -89,13 +92,6 @@ Step 2. Add the dependency
 > * 同样可以通过继承`PapawHelper`来为你的`PapawView`添加更多功能。
 > * `lineHorn(final Path path, @Side int side, PointF startPoint, PointF endPoint)`里可以重定义自己的羊角画法
 > * `onDrawPath(Canvas canvas, Paint paint, Path path)`里可以重新定义背景的绘制
-
-## Demo
-
-<img src="./3.jpg" width="200" height="80" />
-<img src="./4.jpg" width="200" height="80" />
-<img src="./2.jpg" width="200" height="80" />
-
 
 # License
 <hr/>
