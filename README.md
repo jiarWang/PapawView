@@ -3,6 +3,8 @@
 
 `PapawView`: 自带羊角背景的`View`
 
+<img src="./1.jpg" width="200" height="80" />
+
 使用：<p/>
 Step 1. Add it in your root `./build.gradle` at the end of repositories:
 ```gradle
@@ -19,6 +21,7 @@ Step 2. Add the dependency
 	        implementation 'com.github.jiarWang:PapawView:1.0.0'
 	}
 ```
+
 ## PapawTextView
 <hr/>
 
@@ -87,10 +90,18 @@ Step 2. Add the dependency
 > * `lineHorn(final Path path, @Side int side, PointF startPoint, PointF endPoint)`里可以重定义自己的羊角画法
 > * `onDrawPath(Canvas canvas, Paint paint, Path path)`里可以重新定义背景的绘制
 
+## Demo
+
+<img src="./3.jpg" width="200" height="80" />
+<img src="./4.jpg" width="200" height="80" />
+<img src="./2.jpg" width="200" height="80" />
+
+
 # License
 <hr/>
 
 ```
+
 Copyright 2014 wangjian
 
 Licensed under the Apache License, Version 2.0 (the "License");
