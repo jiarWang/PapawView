@@ -145,7 +145,7 @@ public class PapawHelper {
         onDrawPath(canvas, mPaint, mPath);
     }
 
-    public void onDrawPath(Canvas canvas, Paint paint, Path path) {
+    protected void onDrawPath(Canvas canvas, Paint paint, Path path) {
         canvas.drawPath(path, paint);
     }
 
@@ -186,6 +186,14 @@ public class PapawHelper {
         }
     }
 
+    /**
+     * set horn info
+     * @param hornSide
+     * @param start
+     * @param center
+     * @param end
+     * @return
+     */
     public PapawHelper setHornPoint(@Side int hornSide, float start, float center, float end) {
         mHornSide = mHornSide | hornSide;
         if (hornSide == NONE) return this;
@@ -268,6 +276,14 @@ public class PapawHelper {
         }
     }
 
+    /**
+     * line a side by you self
+     * @param path
+     * @param side
+     * @param startPoint
+     * @param endPoint
+     * @return  return true if you need draw line in you own way
+     */
     protected boolean lineHorn(final Path path, @Side int side, PointF startPoint, PointF endPoint) {
         return false;
     }
