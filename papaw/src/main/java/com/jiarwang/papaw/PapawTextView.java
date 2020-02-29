@@ -50,16 +50,17 @@ public class PapawTextView extends AppCompatTextView {
 
         int horSide = typedArray.getInt(R.styleable.PapawTextView_horn_side, 0);
         float hornHeight = typedArray.getDimensionPixelOffset(R.styleable.PapawTextView_horn_height, 0);
-        float radius = typedArray.getDimension(R.styleable.PapawTextView_radius, 0);
-        float anchorStart = typedArray.getDimension(R.styleable.PapawTextView_horn_start, 0);
-        float anchorCenter = typedArray.getDimension(R.styleable.PapawTextView_horn_center, 0);
-        float anchorEnd = typedArray.getDimension(R.styleable.PapawTextView_horn_end, 0);
+        float radius = typedArray.getDimensionPixelOffset(R.styleable.PapawTextView_radius, 0);
+        float anchorStart = typedArray.getDimensionPixelOffset(R.styleable.PapawTextView_horn_start, 0);
+        float anchorCenter = typedArray.getDimensionPixelOffset(R.styleable.PapawTextView_horn_center, 0);
+        float anchorEnd = typedArray.getDimensionPixelOffset(R.styleable.PapawTextView_horn_end, 0);
         float papawAlpha = typedArray.getFloat(R.styleable.PapawTextView_horn_alpha, 0);
         final int color = typedArray.getColor(R.styleable.PapawTextView_color, Color.BLACK);
+
         mHelper = new PapawHelper(this) {
             @Override
             public void onDrawPath(Canvas canvas, Paint paint, Path path) {
-                if (typedArray.hasValue(R.styleable.PapawLayout_color)){
+                if (typedArray.hasValue(R.styleable.PapawTextView_color)) {
                     paint.setShader(null);
                     paint.setColor(color);
                 }
@@ -75,6 +76,9 @@ public class PapawTextView extends AppCompatTextView {
     @Override
     protected void onDraw(Canvas canvas) {
         mHelper.drawBackground(canvas);
+//        canvas.translate(mHelper.getHornPadding(PapawHelper.RIGHT) - mHelper.getHornPadding(PapawHelper.LEFT),
+//                mHelper.getHornPadding(PapawHelper.BOTTOM) - mHelper.getHornPadding(PapawHelper.TOP));
+
         super.onDraw(canvas);
     }
 }

@@ -35,13 +35,24 @@ public class PapawLayout extends CoordinatorLayout {
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr){
+        //        //check attributes you need, for example all paddings
+//        int [] attributes = new int [] {android.R.attr.paddingLeft, android.R.attr.paddingTop, android.R.attr.paddingBottom, android.R.attr.paddingRight};
+////        //then obtain typed array
+//        TypedArray arr = context.obtainStyledAttributes(attrs, attributes);
+////
+////        //and get values you need by indexes from your array attributes defined above
+//        int leftPadding = arr.getDimensionPixelOffset(0, -1);
+//        int topPadding = arr.getDimensionPixelOffset(1, -1);
+//        int bottomPadding = arr.getDimensionPixelOffset(2, -1);
+//        int rightPadding = arr.getDimensionPixelOffset(3, -1);
+
         final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PapawLayout);
         int horSide = typedArray.getInt(R.styleable.PapawLayout_horn_side, 0);
-        float hornHeight = typedArray.getDimension(R.styleable.PapawLayout_horn_height, 0);
-        float radius = typedArray.getDimension(R.styleable.PapawLayout_radius, 0);
-        float anchorStart = typedArray.getDimension(R.styleable.PapawLayout_horn_start, 0);
-        float anchorCenter = typedArray.getDimension(R.styleable.PapawLayout_horn_center, 0);
-        float anchorEnd = typedArray.getDimension(R.styleable.PapawLayout_horn_end, 0);
+        int hornHeight = typedArray.getDimensionPixelOffset(R.styleable.PapawLayout_horn_height, 0);
+        int radius = typedArray.getDimensionPixelOffset(R.styleable.PapawLayout_radius, 0);
+        int anchorStart = typedArray.getDimensionPixelOffset(R.styleable.PapawLayout_horn_start, 0);
+        int anchorCenter = typedArray.getDimensionPixelOffset(R.styleable.PapawLayout_horn_center, 0);
+        int anchorEnd = typedArray.getDimensionPixelOffset(R.styleable.PapawLayout_horn_end, 0);
         float papawAlpha = typedArray.getFloat(R.styleable.PapawLayout_horn_alpha, 0);
         final int color = typedArray.getColor(R.styleable.PapawLayout_color, Color.BLACK);
         mPapawHelper = new PapawHelper(this){

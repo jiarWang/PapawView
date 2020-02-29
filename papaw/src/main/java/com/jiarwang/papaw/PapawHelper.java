@@ -43,6 +43,7 @@ public class PapawHelper {
     {
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setAlpha((int) (255 * 0.71));
+        mPaint.setStrokeJoin(Paint.Join.ROUND);
     }
 
     public PapawHelper(View view) {
@@ -95,6 +96,12 @@ public class PapawHelper {
         float bottom = v.getHeight() - (isHorn(PapawHelper.BOTTOM) ? mHornHeight : 0);
         float left = isHorn(PapawHelper.LEFT) ? mHornHeight : 0;
         float right = v.getWidth() - (isHorn(PapawHelper.RIGHT) ? mHornHeight : 0);
+//
+//        top += v.getPaddingTop();
+//        left += v.getPaddingLeft();
+//        right -= v.getPaddingRight();
+//        bottom -= v.getPaddingBottom();
+
 
         RectF ltRectF = getRectFromPool(0, left, top, 2 * mRadius);
         RectF rtRectF = getRectFromPool(1, right - 2 * mRadius, top, 2 * mRadius);
