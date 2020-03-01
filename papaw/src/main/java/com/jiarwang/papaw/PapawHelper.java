@@ -1,9 +1,11 @@
 package com.jiarwang.papaw;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PathEffect;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.Shader;
@@ -35,9 +37,12 @@ public class PapawHelper {
 
     private View v;
     private Paint mPaint = newSimplePaint(Paint.Style.FILL);
-    private Paint mBorderPaint;
+    private Paint mBorderPaint = newSimplePaint(Paint.Style.STROKE);
     private final Path mPath = new Path();
     private float mHornHeight = 10f;
+    {
+        mBorderPaint.setColor(Color.TRANSPARENT);
+    }
 
     public PapawHelper(View view) {
         if (view instanceof ViewGroup) {

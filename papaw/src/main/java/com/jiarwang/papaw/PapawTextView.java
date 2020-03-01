@@ -39,23 +39,23 @@ public class PapawTextView extends AppCompatTextView {
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
         final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PapawTextView);
-//        //check attributes you need, for example all paddings
-//        int [] attributes = new int [] {android.R.attr.paddingLeft, android.R.attr.paddingTop, android.R.attr.paddingBottom, android.R.attr.paddingRight};
-//        //then obtain typed array
-//        TypedArray arr = context.obtainStyledAttributes(attrs, attributes);
-//
-//        //and get values you need by indexes from your array attributes defined above
-//        int leftPadding = arr.getDimensionPixelOffset(0, -1);
-//        int topPadding = arr.getDimensionPixelOffset(1, -1);
-//        int bottomPadding = arr.getDimensionPixelOffset(2, -1);
-//        int rightPadding = arr.getDimensionPixelOffset(3, -1);
+        //check attributes you need, for example all paddings
+        int [] attributes = new int [] {android.R.attr.paddingLeft, android.R.attr.paddingTop, android.R.attr.paddingBottom, android.R.attr.paddingRight};
+        //then obtain typed array
+        TypedArray arr = context.obtainStyledAttributes(attrs, attributes);
+
+        //and get values you need by indexes from your array attributes defined above
+        int leftPadding = arr.getDimensionPixelOffset(0, -1);
+        int topPadding = arr.getDimensionPixelOffset(1, -1);
+        int bottomPadding = arr.getDimensionPixelOffset(2, -1);
+        int rightPadding = arr.getDimensionPixelOffset(3, -1);
 
         int horSide = typedArray.getInt(R.styleable.PapawTextView_horn_side, 0);
-        float hornHeight = typedArray.getDimensionPixelOffset(R.styleable.PapawTextView_horn_height, 0);
-        float radius = typedArray.getDimensionPixelOffset(R.styleable.PapawTextView_radius, 0);
-        float anchorStart = typedArray.getDimensionPixelOffset(R.styleable.PapawTextView_horn_start, 0);
-        float anchorCenter = typedArray.getDimensionPixelOffset(R.styleable.PapawTextView_horn_center, 0);
-        float anchorEnd = typedArray.getDimensionPixelOffset(R.styleable.PapawTextView_horn_end, 0);
+        int hornHeight = typedArray.getDimensionPixelOffset(R.styleable.PapawTextView_horn_height, 0);
+        int radius = typedArray.getDimensionPixelOffset(R.styleable.PapawTextView_radius, 0);
+        int anchorStart = typedArray.getDimensionPixelOffset(R.styleable.PapawTextView_horn_start, 0);
+        int anchorCenter = typedArray.getDimensionPixelOffset(R.styleable.PapawTextView_horn_center, 0);
+        int anchorEnd = typedArray.getDimensionPixelOffset(R.styleable.PapawTextView_horn_end, 0);
         float papawAlpha = typedArray.getFloat(R.styleable.PapawTextView_horn_alpha, 0);
         final int color = typedArray.getColor(R.styleable.PapawTextView_color, Color.BLACK);
 
@@ -78,6 +78,11 @@ public class PapawTextView extends AppCompatTextView {
                 .setRadius(radius)
                 .setHornHeight(hornHeight)
                 .setHornPoint(horSide, anchorStart, anchorCenter, anchorEnd);
+        setPadding(leftPadding + (mPapawHelper.isHorn(PapawHelper.LEFT) ? hornHeight : 0),
+                topPadding + (mPapawHelper.isHorn(PapawHelper.TOP) ? hornHeight : 0),
+                rightPadding + (mPapawHelper.isHorn(PapawHelper.RIGHT) ? hornHeight : 0),
+                bottomPadding + (mPapawHelper.isHorn(PapawHelper.BOTTOM) ? hornHeight : 0)
+        );
     }
 
     @Override
