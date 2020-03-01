@@ -33,18 +33,11 @@ public class PapawHelper {
             new PointF(), new PointF(), new PointF(), new PointF()};
     private float[] points = new float[12];
 
-    private final Paint defaultPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-
     private View v;
-    private Paint mPaint = defaultPaint;
+    private Paint mPaint = newSimplePaint(Paint.Style.FILL);
+    private Paint mBorderPaint;
     private final Path mPath = new Path();
     private float mHornHeight = 10f;
-
-    {
-        mPaint.setStyle(Paint.Style.FILL);
-        mPaint.setAlpha((int) (255 * 0.71));
-        mPaint.setStrokeJoin(Paint.Join.ROUND);
-    }
 
     public PapawHelper(View view) {
         if (view instanceof ViewGroup) {
@@ -62,8 +55,14 @@ public class PapawHelper {
         return this;
     }
 
+
     public PapawHelper setAlpha(float alpha) {
         mPaint.setAlpha((int) (255 - alpha * 255));
+        return this;
+    }
+
+    public PapawHelper setBorderPaint(Paint borderPaint) {
+        mBorderPaint = borderPaint;
         return this;
     }
 
@@ -75,6 +74,7 @@ public class PapawHelper {
         this.mHornHeight = hornHeight;
         return this;
     }
+
 
     public PapawHelper setRadius(float radius) {
         mRadius = radius;
@@ -92,17 +92,26 @@ public class PapawHelper {
     }
 
     protected void drawBackground(Canvas canvas) {
+        float bordWidth = mBorderPaint == null ? 0 : mBorderPaint.getStrokeWidth();
+        drawPath(canvas, mPath, bordWidth);
+        drawBorder(canvas, mPath, bordWidth);
+    }
+
+    private void drawPath(Canvas canvas, Path path, float paintWidth) {
+        if (mPaint == null) return;
         float top = isHorn(PapawHelper.TOP) ? mHornHeight : 0;
         float bottom = v.getHeight() - (isHorn(PapawHelper.BOTTOM) ? mHornHeight : 0);
         float left = isHorn(PapawHelper.LEFT) ? mHornHeight : 0;
         float right = v.getWidth() - (isHorn(PapawHelper.RIGHT) ? mHornHeight : 0);
-//
-//        top += v.getPaddingTop();
-//        left += v.getPaddingLeft();
-//        right -= v.getPaddingRight();
-//        bottom -= v.getPaddingBottom();
+        top += paintWidth + 0.5;
+        left += paintWidth + 0.5;
+        right -= paintWidth + 0.5;
+        bottom -= paintWidth + 0.5;
+        makePath(mPath, top, bottom, left, right);
+        onDrawPath(canvas, path, top, bottom, left, right);
+    }
 
-
+    protected void makePath(Path path, float top, float bottom, float left, float right) {
         RectF ltRectF = getRectFromPool(0, left, top, 2 * mRadius);
         RectF rtRectF = getRectFromPool(1, right - 2 * mRadius, top, 2 * mRadius);
         RectF rbRectF = getRectFromPool(2, right - 2 * mRadius, bottom - 2 * mRadius, 2 * mRadius);
@@ -117,36 +126,55 @@ public class PapawHelper {
         PointF lt = getPointFromPool(6, left, top + mRadius);
         PointF lb = getPointFromPool(7, left, bottom - mRadius);
 
-        mPath.reset();
+        path.reset();
         //top
-        mPath.addArc(ltRectF, 180, 90);
-        if (isHorn(PapawHelper.TOP)) lineHorn(mPath, tl, tr, PapawHelper.TOP, mHornHeight);
-        lineTo(mPath, tr);
+        path.addArc(ltRectF, 180, 90);
+        if (isHorn(PapawHelper.TOP)) lineHorn(path, tl, tr, PapawHelper.TOP, mHornHeight);
+        lineTo(path, tr);
         //right
-        mPath.arcTo(rtRectF, 270, 90);
-        if (isHorn(PapawHelper.RIGHT)) lineHorn(mPath, rt, rb, PapawHelper.RIGHT, mHornHeight);
-        lineTo(mPath, rb);
+        path.arcTo(rtRectF, 270, 90);
+        if (isHorn(PapawHelper.RIGHT)) lineHorn(path, rt, rb, PapawHelper.RIGHT, mHornHeight);
+        lineTo(path, rb);
         //bottom
-        mPath.arcTo(rbRectF, 0, 90);
-        if (isHorn(PapawHelper.BOTTOM)) lineHorn(mPath, br, bl, PapawHelper.BOTTOM, mHornHeight);
-        lineTo(mPath, bl);
+        path.arcTo(rbRectF, 0, 90);
+        if (isHorn(PapawHelper.BOTTOM)) lineHorn(path, br, bl, PapawHelper.BOTTOM, mHornHeight);
+        lineTo(path, bl);
         //left
-        mPath.arcTo(lbRectF, 90, 90);
-        if (isHorn(PapawHelper.LEFT)) lineHorn(mPath, lb, lt, PapawHelper.LEFT, mHornHeight);
-        lineTo(mPath, lt);
-        mPath.close();
-
-        if (defaultPaint == mPaint) {
-            int[] colors = new int[]{0XFF52EFEC, 0XFFB2E9C6, 0XFFFFBD6A};
-            float[] ps = new float[]{0.17f, 0.47f, 0.86f};
-            LinearGradient gradient = new LinearGradient(left, 0, right, 0, colors, ps, Shader.TileMode.CLAMP);
-            mPaint.setShader(gradient);
-        }
-        onDrawPath(canvas, mPaint, mPath);
+        path.arcTo(lbRectF, 90, 90);
+        if (isHorn(PapawHelper.LEFT)) lineHorn(path, lb, lt, PapawHelper.LEFT, mHornHeight);
+        lineTo(path, lt);
+        path.close();
     }
 
-    protected void onDrawPath(Canvas canvas, Paint paint, Path path) {
-        canvas.drawPath(path, paint);
+    private void drawBorder(Canvas canvas, Path path, float paintWidth) {
+        if (mBorderPaint == null) return;
+        float top = isHorn(PapawHelper.TOP) ? mHornHeight : 0;
+        float bottom = v.getHeight() - (isHorn(PapawHelper.BOTTOM) ? mHornHeight : 0);
+        float left = isHorn(PapawHelper.LEFT) ? mHornHeight : 0;
+        float right = v.getWidth() - (isHorn(PapawHelper.RIGHT) ? mHornHeight : 0);
+//        float shadowRadius = getBorderPaintShadowRadius();
+//        top += (mBorderPaint.getStrokeWidth() / 2 + shadowRadius);
+//        left += (mBorderPaint.getStrokeWidth() / 2 + shadowRadius);
+//        right -= (mBorderPaint.getStrokeWidth() / 2 + shadowRadius);
+//        bottom -= (mBorderPaint.getStrokeWidth() / 2 + shadowRadius);
+
+        top += (paintWidth / 2) + 0.5;
+        left += (paintWidth / 2) + 0.5;
+        right -= (paintWidth / 2) + 0.5;
+        bottom -= (paintWidth / 2) + 0.5;
+        makePath(mPath, top, bottom, left, right);
+        onDrawBorder(canvas, path, top, bottom, left, right);
+    }
+
+
+    protected void onDrawBorder(Canvas canvas, Path path, float top, float bottom, float left, float right) {
+        if(mBorderPaint == null) return;
+        canvas.drawPath(mPath, mBorderPaint);
+    }
+
+    protected void onDrawPath(Canvas canvas, Path path, float top, float bottom, float left, float right) {
+        if (mPaint == null) return;
+        canvas.drawPath(path, mPaint);
     }
 
 
@@ -188,6 +216,7 @@ public class PapawHelper {
 
     /**
      * set horn info
+     *
      * @param hornSide
      * @param start
      * @param center
@@ -278,11 +307,12 @@ public class PapawHelper {
 
     /**
      * line a side by you self
+     *
      * @param path
      * @param side
      * @param startPoint
      * @param endPoint
-     * @return  return true if you need draw line in you own way
+     * @return return true if you need draw line in you own way
      */
     protected boolean lineHorn(final Path path, @Side int side, PointF startPoint, PointF endPoint) {
         return false;
@@ -304,5 +334,12 @@ public class PapawHelper {
         hornPadding += (isHorn(RIGHT) ? mHornHeight : 0);
         hornPadding += (isHorn(BOTTOM) ? mHornHeight : 0);
         return hornPadding;
+    }
+
+    public static Paint newSimplePaint(Paint.Style style){
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setStyle(style);
+        paint.setStrokeJoin(Paint.Join.ROUND);
+        return paint;
     }
 }

@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Shader;
 import android.util.AttributeSet;
 
 import androidx.annotation.Nullable;
@@ -22,7 +24,7 @@ import androidx.appcompat.widget.AppCompatTextView;
  */
 public class PapawTextView extends AppCompatTextView {
 
-    private PapawHelper mHelper;
+    private PapawHelper mPapawHelper;
 
     public PapawTextView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -57,16 +59,21 @@ public class PapawTextView extends AppCompatTextView {
         float papawAlpha = typedArray.getFloat(R.styleable.PapawTextView_horn_alpha, 0);
         final int color = typedArray.getColor(R.styleable.PapawTextView_color, Color.BLACK);
 
-        mHelper = new PapawHelper(this) {
+        final Paint paint = PapawHelper.newSimplePaint(Paint.Style.FILL);
+        mPapawHelper = new PapawHelper(this) {
             @Override
-            public void onDrawPath(Canvas canvas, Paint paint, Path path) {
-                if (typedArray.hasValue(R.styleable.PapawTextView_color)) {
-                    paint.setShader(null);
+            protected void onDrawPath(Canvas canvas, Path path, float top, float bottom, float left, float right) {
+                int[] colors = new int[]{0XFF52EFEC, 0XFFB2E9C6, 0XFFFFBD6A};
+                float[] ps = new float[]{0.17f, 0.47f, 0.86f};
+                LinearGradient gradient = new LinearGradient(left, 0, right, 0, colors, ps, Shader.TileMode.CLAMP);
+                paint.setShader(gradient);
+                if (typedArray.hasValue(R.styleable.PapawLayout_color)){
                     paint.setColor(color);
                 }
-                super.onDrawPath(canvas, paint, path);
+                super.onDrawPath(canvas, path, top, bottom, left, right);
             }
         }
+                .setPaint(paint)
                 .setAlpha(papawAlpha)
                 .setRadius(radius)
                 .setHornHeight(hornHeight)
@@ -75,7 +82,7 @@ public class PapawTextView extends AppCompatTextView {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        mHelper.drawBackground(canvas);
+        mPapawHelper.drawBackground(canvas);
 //        canvas.translate(mHelper.getHornPadding(PapawHelper.RIGHT) - mHelper.getHornPadding(PapawHelper.LEFT),
 //                mHelper.getHornPadding(PapawHelper.BOTTOM) - mHelper.getHornPadding(PapawHelper.TOP));
 

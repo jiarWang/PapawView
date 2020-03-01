@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 
@@ -55,16 +57,21 @@ public class PapawLayout extends CoordinatorLayout {
         int anchorEnd = typedArray.getDimensionPixelOffset(R.styleable.PapawLayout_horn_end, 0);
         float papawAlpha = typedArray.getFloat(R.styleable.PapawLayout_horn_alpha, 0);
         final int color = typedArray.getColor(R.styleable.PapawLayout_color, Color.BLACK);
+        final Paint paint = PapawHelper.newSimplePaint(Paint.Style.FILL);
         mPapawHelper = new PapawHelper(this){
             @Override
-            public void onDrawPath(Canvas canvas, Paint paint, Path path) {
+            protected void onDrawPath(Canvas canvas, Path path, float top, float bottom, float left, float right) {
+                int[] colors = new int[]{0XFF52EFEC, 0XFFB2E9C6, 0XFFFFBD6A};
+                float[] ps = new float[]{0.17f, 0.47f, 0.86f};
+                LinearGradient gradient = new LinearGradient(left, 0, right, 0, colors, ps, Shader.TileMode.CLAMP);
+                paint.setShader(gradient);
                 if (typedArray.hasValue(R.styleable.PapawLayout_color)){
-                    paint.setShader(null);
                     paint.setColor(color);
                 }
-                super.onDrawPath(canvas, paint, path);
+                super.onDrawPath(canvas, path, top, bottom, left, right);
             }
         }
+                .setPaint(paint)
                 .setAlpha(papawAlpha)
                 .setRadius(radius)
                 .setHornHeight(hornHeight)
