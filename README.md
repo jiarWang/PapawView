@@ -1,7 +1,7 @@
 # PapawView
 [![](https://jitpack.io/v/jiarWang/PapawView.svg)](https://jitpack.io/#jiarWang/PapawView)
 
-`PapawView`: 可灵活定义含凸起外形背景的`View`
+`PapawView`: 可灵活定义凸起位置、凸起形状的消息背景`View`
 
 <img src="./3.jpg" width="200" height="80" />
 
@@ -44,11 +44,10 @@ Step 2. Add the dependency
 <hr/>
 
 
->提示：
+>提示：羊角的空间需要使用`padding`手动腾出来
 >
->  羊角所在的边的`padding`需要比对边的`padding`值大一个羊角高度，即使对边没有`padding`，例如：
-> >
-> 羊角所在边为`top`,则需要满足：`paddingTop - paddingBottom = horn_height`，即使`paddingBottom = 0`
+>>  即： 羊角所在的边的`padding`需要比对边的`padding`值大一个羊角高度，即使对边没有`padding`，例如：
+> >羊角所在边为`top`,则需要满足：`paddingTop - paddingBottom = horn_height`，即使`paddingBottom = 0`
 
 <hr/>
 
@@ -56,6 +55,33 @@ Step 2. Add the dependency
 
 `PapawLayout`继承自`CoordinatorLayout`,这样便可以在`Papaw`图形上做更多的事情。
 `PapawLayout`的额外属性的使用同`PapawTextView`一样。
+> * Samele
+>  如下： paddingTop - paddingBottom = horn_height
+> >```xml
+> >        <com.jiarwang.papaw.PapawLayout xmlns:android="http://schemas.android.com/apk/res/android"
+> >            xmlns:app="http://schemas.android.com/apk/res-auto"
+> >            xmlns:tools="http://schemas.android.com/tools"
+> >            android:layout_width="match_parent"
+> >            android:layout_height="100dp"
+> >            android:layout_gravity="center"
+> >            android:paddingTop="50dp"
+> >            android:paddingBottom="30dp"
+>>            app:horn_alpha="0.71"
+>>            app:horn_center="30dp"
+>>            app:horn_end="50dp"
+>>            app:horn_height="20dp"
+>>            app:horn_side="top"
+>>            app:horn_start="20dp"
+>>            app:radius="12dp"
+>>            tools:context=".Main2Activity">
+>>
+>>            <TextView
+>>                android:layout_width="wrap_content"
+>>                android:layout_height="wrap_content"
+>>                android:layout_gravity="center"
+>>                android:text="alpha = 0.71"
+>>                android:textSize="20sp" />
+>>        </com.jiarwang.papaw.PapawLayout>
 
 ## PapawHelper
 <hr/>

@@ -1,2 +1,2 @@
-include ':app', ':papaw'
+include ':app', ':papaw', ':xcardview'
 rootProject.name='papaw view'
