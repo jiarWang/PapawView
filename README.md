@@ -86,7 +86,7 @@ Step 2. Add the dependency
 ## PapawHelper
 <hr/>
 
-如果`PapawLayout`和`PapawTextView`不能满足你的需求，可是只是使用`PapawHelper`来直接帮助你完成这种带羊角背景的自定义`View`(或`ViewGroup`);
+如果`PapawLayout`和`PapawTextView`不能满足你的需求，可是使用`PapawHelper`来直接帮助你完成这种带羊角背景的自定义`View`(或`ViewGroup`);
 ### PapawHelper 说明
 * setPaint(Paint paint) ： 设置绘制背景的画笔
 * setAlpha(float alpha) ：设置背景的透明度(0~1)
@@ -99,13 +99,15 @@ Step 2. Add the dependency
 使用`PapawHelper`让自定义`View`带上羊角，只需要两行代码:
 
 1) 为自定义的`View`添加一个`PapawHelper`类型成员变量`mPapawHelper`;
-2) 重写`onDraw`方法，并在`super.onDraw(canvas)`前，调用`mPapawHelper.drawBackground(canvas);`
 ```java
-//CustomView.java
     private PapawHelper mPapawHelper = new PapawHelper(this)
                                         . setHornHeight(5)//设置羊角高度
                                         .setHornPoint(PapawHelper.TOP, 5, 15, 20);
-        ....
+
+```
+2) 重写`onDraw`方法，并在`super.onDraw(canvas)`前，调用`mPapawHelper.drawBackground(canvas);`
+```java
+//CustomView.java
 
     @Override
     public void onDraw(Canvas canvas) {
